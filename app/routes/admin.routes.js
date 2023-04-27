@@ -13,7 +13,7 @@ module.exports = app => {
     route.put("/admin/Professor/:id", createProfessor.update)
     route.delete("/admin/Professor/:id",createProfessor.delete)
     route.get("/admin/Professors",createProfessor.getProfessors)
-    // route.get("/admin/Professor/:id",createProfessor.getProfessorById)
+    route.get("/admin/Professor/:id",createProfessor.getProfessorById)
 
 
     app.use('/api/posts', route)
