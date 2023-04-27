@@ -75,19 +75,19 @@ exports.getStudents = (req, res) => {
         });
 };
 
-exports.getStudentById = (req,res) => {
+exports.getStudentById = (req, res) => {
     const id = req.params.id;
 
     Student.findById(id)
         .then(data => {
             if (!data)
-                res.status(404).send({ message: "Not found Student with id " + id });
+                res.status(404).send({message: "Not found Student with id " + id});
             else res.send(data);
         })
         .catch(err => {
             res
                 .status(500)
-                .send({ message: "Error retrieving Student with id=" + id });
+                .send({message: "Error retrieving Student with id=" + id});
         });
 }
 

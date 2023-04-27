@@ -1,4 +1,3 @@
-const createStudent = require("../controllers/student.controller");
 module.exports = app => {
     const route = require('express').Router();
     const createStudent = require('../controllers/student.controller')
