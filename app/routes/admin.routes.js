@@ -20,7 +20,7 @@ module.exports = app => {
     route.post("/admin/manager", createEducationalManager.create)
     route.put("/admin/manager/:id", createEducationalManager.update)
     route.delete("/admin/manager/:id",createEducationalManager.delete)
-    // route.get("/admin/managers",createEducationalManager.getEducationalManager)
+    route.get("/admin/managers",createEducationalManager.getEducationalManager)
     // route.get("/admin/manager/:id",createEducationalManager.getEducationalManagerById)
 
 
