@@ -1,4 +1,4 @@
-const BaseUserSchema = require("./BaseUserSchema");
+const BaseUserSchema = require("./baseUserSchema");
 
 module.exports = mongoose => {
     const Professor = new mongoose.Schema({
