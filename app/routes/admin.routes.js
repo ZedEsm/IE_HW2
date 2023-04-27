@@ -1,3 +1,4 @@
+const createStudent = require("../controllers/student.controller");
 module.exports = app => {
     const route = require('express').Router();
     const createStudent = require('../controllers/student.controller')
@@ -6,6 +7,7 @@ module.exports = app => {
     route.put("/admin/student/:id", createStudent.update)
     route.delete("/admin/student/:id",createStudent.delete)
     route.get("/admin/students",createStudent.getStudents)
+    route.get("/admin/student/:id",createStudent.getStudentById)
 
 
     app.use('/api/posts', route)
