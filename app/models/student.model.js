@@ -9,5 +9,5 @@ module.exports = mongoose => {
         college: String,
         field: String,
     });
-    return BaseUserSchema(mongoose).discriminator("students",Student);
+    return BaseUserSchema(mongoose).discriminator("students", Student);
 };

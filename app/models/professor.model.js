@@ -7,5 +7,5 @@ module.exports = mongoose => {
         rank: String,
     });
 
-    return BaseUserSchema(mongoose).discriminator("professor",Professor);
+    return BaseUserSchema(mongoose).discriminator("professor", Professor);
 };

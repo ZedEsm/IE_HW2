@@ -33,7 +33,7 @@ exports.update = (req, res) => {
                 });
             } else res.send({message: "Student was updated successfully."});
         })
-        .catch(err => {
+        .catch(() => {
             res.status(500).send({
                 message: "Error updating Student with id=" + id
             });
@@ -55,7 +55,7 @@ exports.delete = (req, res) => {
                 });
             }
         })
-        .catch(err => {
+        .catch(() => {
             res.status(500).send({
                 message: "Could not delete Student with id=" + id
             });
@@ -84,7 +84,7 @@ exports.getStudentById = (req, res) => {
                 res.status(404).send({message: "Not found Student with id " + id});
             else res.send(data);
         })
-        .catch(err => {
+        .catch(() => {
             res
                 .status(500)
                 .send({message: "Error retrieving Student with id=" + id});

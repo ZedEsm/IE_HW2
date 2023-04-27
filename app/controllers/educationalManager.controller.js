@@ -33,7 +33,7 @@ exports.update = (req, res) => {
                 });
             } else res.send({message: "Educational_Manager was updated successfully."});
         })
-        .catch(err => {
+        .catch(() => {
             res.status(500).send({
                 message: "Error updating Educational_Manager with id=" + id
             });
@@ -55,7 +55,7 @@ exports.delete = (req, res) => {
                 });
             }
         })
-        .catch(err => {
+        .catch(() => {
             res.status(500).send({
                 message: "Could not delete Educational_Manager with id=" + id
             });
@@ -84,7 +84,7 @@ exports.getEducationalManagerById = (req, res) => {
                 res.status(404).send({message: "Not found educational-manager with id " + id});
             else res.send(data);
         })
-        .catch(err => {
+        .catch(() => {
             res
                 .status(500)
                 .send({message: "Error retrieving Educational_Manager with id=" + id});
