@@ -11,8 +11,8 @@ module.exports = app => {
 
     route.post("/admin/Professor", createProfessor.create)
     route.put("/admin/Professor/:id", createProfessor.update)
-    // route.delete("/admin/Professor/:id",createProfessor.delete)
-    // route.get("/admin/Professors",createProfessor.getProfessors)
+    route.delete("/admin/Professor/:id",createProfessor.delete)
+    route.get("/admin/Professors",createProfessor.getProfessors)
     // route.get("/admin/Professor/:id",createProfessor.getProfessorById)
 
 
