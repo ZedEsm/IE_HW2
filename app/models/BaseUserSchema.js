@@ -3,7 +3,8 @@ const baseOption = {
     timeStamp: true,
 }
 module.exports = mongoose => {
-    return mongoose.model(
+
+    const BaseUserSchema = mongoose.models.users ||  mongoose.model(
         "users",
         mongoose.Schema(
             {
@@ -29,5 +30,6 @@ module.exports = mongoose => {
 
             }, baseOption)
     )
+    return BaseUserSchema
 
 }

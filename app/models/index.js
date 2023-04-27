@@ -7,4 +7,5 @@ const db = {};
 db.mongoose = mongoose;
 db.url = dbConfig.url;
 db.student = require('./student.model.js')(mongoose)
+db.professor = require('./professor.model')(mongoose)
 module.exports = db;
