@@ -15,6 +15,7 @@ exports.create = (req, res) => {
         })
     })
 }
+
 exports.update = (req,res) => {
     if (!req.body) {
         return res.status(400).send({
@@ -38,4 +39,26 @@ exports.update = (req,res) => {
             });
         });
 }
+
+exports.delete = (req, res) => {
+    const id = req.params.id;
+
+    Student.findByIdAndRemove(id)
+        .then(data => {
+            if (!data) {
+                res.status(404).send({
+                    message: `Cannot delete Student with id=${id}. Maybe Student was not found!`
+                });
+            } else {
+                res.send({
+                    message: "Student was deleted successfully!"
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Could not delete Student with id=" + id
+            });
+        });
+};
 
