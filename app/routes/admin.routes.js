@@ -21,7 +21,7 @@ module.exports = app => {
     route.put("/admin/manager/:id", createEducationalManager.update)
     route.delete("/admin/manager/:id",createEducationalManager.delete)
     route.get("/admin/managers",createEducationalManager.getEducationalManager)
-    // route.get("/admin/manager/:id",createEducationalManager.getEducationalManagerById)
+    route.get("/admin/manager/:id",createEducationalManager.getEducationalManagerById)
 
 
     app.use('/api/posts', route)
