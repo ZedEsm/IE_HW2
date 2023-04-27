@@ -5,6 +5,8 @@ module.exports = app => {
     route.post("/admin/student", createStudent.create)
     route.put("/admin/student/:id", createStudent.update)
     route.delete("/admin/student/:id",createStudent.delete)
+    route.get("/admin/students",createStudent.getStudents)
+
 
     app.use('/api/posts', route)
 }
