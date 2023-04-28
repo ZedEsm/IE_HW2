@@ -73,3 +73,19 @@ exports.getCourses = (req, res) => {
             });
         });
 };
+
+exports.getCourseById = (req, res) => {
+    const id = req.params.id;
+
+    Approved_Course.findById(id)
+        .then(data => {
+            if (!data)
+                res.status(404).send({message: "Not found Approved course with id " + id});
+            else res.send(data);
+        })
+        .catch(() => {
+            res
+                .status(500)
+                .send({message: "Error retrieving Approved course with id=" + id});
+        });
+}
