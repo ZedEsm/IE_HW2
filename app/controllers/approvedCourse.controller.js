@@ -38,3 +38,25 @@ exports.update = (req, res) => {
             });
         });
 }
+
+exports.delete = (req, res) => {
+    const id = req.params.id;
+
+    Approved_Course.findByIdAndRemove(id)
+        .then(data => {
+            if (!data) {
+                res.status(404).send({
+                    message: `Cannot delete Approved Course with id=${id}. Maybe Approved Course was not found!`
+                });
+            } else {
+                res.send({
+                    message: "Approved Course was deleted successfully!"
+                });
+            }
+        })
+        .catch(() => {
+            res.status(500).send({
+                message: "Could not delete Approved Course with id=" + id
+            });
+        });
+};

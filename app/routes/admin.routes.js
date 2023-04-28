@@ -1,4 +1,5 @@
 const createEducationalManager = require("../controllers/educationalManager.controller");
+const createProfessor = require("../controllers/professor.controller");
 module.exports = app => {
     const route = require('express').Router();
     const createStudent = require('../controllers/student.controller')
@@ -26,6 +27,7 @@ module.exports = app => {
 
     route.post("/course",createApprovedCourse.create)
     route.put("/course/:id", createApprovedCourse.update)
+    route.delete("/course/:id", createApprovedCourse.delete)
 
 
     app.use('/api/posts', route)
