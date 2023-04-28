@@ -60,3 +60,16 @@ exports.delete = (req, res) => {
             });
         });
 };
+
+exports.getCourses = (req, res) => {
+    Approved_Course.find()
+        .then(data => {
+            res.send(data)
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving approved courses."
+            });
+        });
+};

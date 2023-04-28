@@ -28,6 +28,7 @@ module.exports = app => {
     route.post("/course",createApprovedCourse.create)
     route.put("/course/:id", createApprovedCourse.update)
     route.delete("/course/:id", createApprovedCourse.delete)
+    route.get("/courses", createApprovedCourse.getCourses)
 
 
     app.use('/api/posts', route)
