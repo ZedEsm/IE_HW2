@@ -1,8 +1,10 @@
+const createEducationalManager = require("../controllers/educationalManager.controller");
 module.exports = app => {
     const route = require('express').Router();
     const createStudent = require('../controllers/student.controller')
     const createProfessor = require('../controllers/professor.controller')
     const createEducationalManager = require('../controllers/educationalManager.controller')
+    const createApprovedCourse = require('../controllers/approvedCourse.controller')
 
     route.post("/admin/student", createStudent.create)
     route.put("/admin/student/:id", createStudent.update)
@@ -21,6 +23,9 @@ module.exports = app => {
     route.delete("/admin/manager/:id", createEducationalManager.delete)
     route.get("/admin/managers", createEducationalManager.getEducationalManager)
     route.get("/admin/manager/:id", createEducationalManager.getEducationalManagerById)
+
+    route.post("/course",createApprovedCourse.create)
+    route.put("/course/:id", createApprovedCourse.update)
 
 
     app.use('/api/posts', route)
