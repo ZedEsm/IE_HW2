@@ -87,7 +87,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Approved_Courses.findByIdAndRemove(id)
+    Course.findByIdAndRemove(id)
         .then(data => {
             if (!data) {
                 res.status(404).send({
@@ -107,16 +107,16 @@ exports.delete = (req, res) => {
 };
 
 exports.getCourses = (req, res) => {
-    Approved_Courses.find()
-        .then(data => {
-            res.send(data)
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving courses."
-            });
-        });
+    // Approved_Courses.find()
+    //     .then(data => {
+    //         res.send(data)
+    //     })
+    //     .catch(err => {
+    //         res.status(500).send({
+    //             message:
+    //                 err.message || "Some error occurred while retrieving courses."
+    //         });
+    //     });
 };
 
 exports.getCourseById = (req, res) => {
