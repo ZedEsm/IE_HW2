@@ -1,5 +1,6 @@
 const create_approved_course = require("../controllers/course.controller");
 const student = require("../controllers/student.controller");
+const professor = require("../controllers/professor.controller")
 module.exports = app => {
     const route = require('express').Router();
 
@@ -11,6 +12,7 @@ module.exports = app => {
 
     route.get("/students",student.getStudents)
     route.get("/student/:id",student.getStudentById)
+    route.get("/professors",professor.getProfessors)
 
 
 
