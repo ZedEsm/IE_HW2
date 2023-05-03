@@ -13,5 +13,6 @@ db.educational_manager = require('./users/educational-manager.model')(mongoose)
 db.it_manager = require('./users/it-manager.model')(mongoose)
 db.approved_course = require('./courses/approved-course.model')(mongoose)
 db.semester_course = require('./courses/semestre-course.model')(mongoose)
+db.course = require('./courses/course.model')(mongoose)
 
 module.exports = db;

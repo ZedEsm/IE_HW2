@@ -1,39 +1,39 @@
 const db = require('../models')
 const Approved_Courses = db.approved_course;
 const Semester_Course = db.semester_course;
+const Course = db.course
 
 exports.create = (req, res) => {
     console.log(req.body)
 
-   const {
-       course_date_time,
-       exam_date_time,
-       exam_location,
-       professor_course,
-       capacity,
-       academic_semester,
-       name,
-       prerequisite,
-       co_requisite,
-       credit,
-       course_type,
+    const {
+        course_date_time,
+        exam_date_time,
+        exam_location,
+        professor_course,
+        capacity,
+        academic_semester,
+        name,
+        prerequisite,
+        co_requisite,
+        credit,
+        course_type,
     } = req.body
-    if(course_type==="APPROVED"){
-         const approvedCourses = new Approved_Courses({
-             name,
-             prerequisite,
-             co_requisite,
-             credit,
-         })
-         approvedCourses.save().then(() => {
-             res.send(approvedCourses)
-         }).catch(err => {
-             res.status(500).send({
-                 message: err.message
-             })
-         })
-    }
-    else{
+    if (course_type === "APPROVED") {
+        const approvedCourses = new Approved_Courses({
+            name,
+            prerequisite,
+            co_requisite,
+            credit,
+        })
+        approvedCourses.save().then(() => {
+            res.send(approvedCourses)
+        }).catch(err => {
+            res.status(500).send({
+                message: err.message
+            })
+        })
+    } else {
         const semesterCourse = new Semester_Course({
             course_date_time,
             exam_date_time,
@@ -63,10 +63,9 @@ exports.update = (req, res) => {
             message: "Data to update can not be empty!"
         });
     }
-
     const id = req.params.id;
 
-    Approved_Courses.findByIdAndUpdate(id, req.body, {useFindAndModify: false})
+    Course.findByIdAndUpdate(id, req.body, {useFindAndModify: false})
         .then(data => {
             if (!data) {
                 res.status(404).send({
@@ -79,6 +78,10 @@ exports.update = (req, res) => {
                 message: "Error updating course with id=" + id
             });
         });
+
+    //}
+
+
 }
 
 exports.delete = (req, res) => {
