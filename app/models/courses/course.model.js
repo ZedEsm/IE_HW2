@@ -1,5 +1,5 @@
 const baseOption = {
-    collection: "course",
+    collection: "courses",
     timeStamp: true,
 }
 module.exports = mongoose => {
@@ -12,8 +12,12 @@ module.exports = mongoose => {
                 prerequisite: String,
                 co_requisite: String,
                 credit: Number,
-
+                course_type: {
+                    type: String,
+                    enum: ['APPROVED','SEMESTER']
+                },
             }, baseOption)
     )
+
 
 }

@@ -7,6 +7,7 @@ const corsOptions = {
     origin: "http://localhost:8081"
 };
 const db = require('./app/models')
+const bodyParser = require("body-parser");
 db.mongoose
     .connect(db.url)
     .then(() => {
@@ -18,7 +19,10 @@ db.mongoose
     });
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 require('./app/routes/admin.routes')(app)
+require('./app/routes/course.routes')(app)
 app.use(express.urlencoded({extended: true}));
 
 const PORT = process.env.PORT || 3001;
