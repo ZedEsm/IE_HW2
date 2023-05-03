@@ -21,8 +21,8 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-require('./app/routes/admin.routes')(app)
-require('./app/routes/course.routes')(app)
+require('./app/routes/it-manager.routes')(app)
+require('./app/routes/educational-manager.routes')(app)
 app.use(express.urlencoded({extended: true}));
 
 const PORT = process.env.PORT || 3001;

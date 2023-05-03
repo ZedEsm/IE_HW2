@@ -1,4 +1,5 @@
 const create_approved_course = require("../controllers/course.controller");
+const student = require("../controllers/student.controller");
 module.exports = app => {
     const route = require('express').Router();
 
@@ -7,6 +8,8 @@ module.exports = app => {
     route.delete("/course/:id", create_approved_course.delete)
     route.get("/courses", create_approved_course.getCourses)
     route.get("/course/:id", create_approved_course.getCourseById)
+
+    route.get("/students",student.getStudents)
 
 
     app.use(route)
