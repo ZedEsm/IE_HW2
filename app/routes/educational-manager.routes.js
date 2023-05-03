@@ -13,6 +13,7 @@ module.exports = app => {
     route.get("/students",student.getStudents)
     route.get("/student/:id",student.getStudentById)
     route.get("/professors",professor.getProfessors)
+    route.get("/professor/:id",professor.getProfessorById)
 
 
 
