@@ -10,6 +10,8 @@ module.exports = app => {
     route.get("/course/:id", create_approved_course.getCourseById)
 
     route.get("/students",student.getStudents)
+    route.get("/student/:id",student.getStudentById)
+
 
 
     app.use(route)
