@@ -122,7 +122,7 @@ exports.getCourses = (req, res) => {
 exports.getCourseById = (req, res) => {
     const id = req.params.id;
 
-    Approved_Courses.findById(id)
+    Course.findById(id)
         .then(data => {
             if (!data)
                 res.status(404).send({message: "Not found course with id " + id});
