@@ -1,4 +1,4 @@
-const db = require('../models')
+const db = require('../utils')
 const Professor = db.professor
 const bcrypt = require('bcrypt')
 exports.create = async (req, res) => {
@@ -14,6 +14,8 @@ exports.create = async (req, res) => {
          email,
          phoneNumber} = req.body
     const hash_password = await bcrypt.hash(String(password),10);
+    const role = "professor";
+
     const professor = new Professor({
         college,
         field ,
@@ -23,7 +25,8 @@ exports.create = async (req, res) => {
         identificationId,
         hash_password,
         email,
-        phoneNumber
+        phoneNumber,
+        role
     })
 
     professor.save().then(() => {

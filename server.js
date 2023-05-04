@@ -6,7 +6,7 @@ const app = express();
 const corsOptions = {
     origin: "http://localhost:8081"
 };
-const db = require('./app/models')
+const db = require('./app/utils')
 const bodyParser = require("body-parser");
 db.mongoose
     .connect(db.url)

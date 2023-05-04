@@ -1,4 +1,4 @@
-const db = require('../models')
+const db = require('../utils')
 const Users = db.users
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
@@ -13,7 +13,10 @@ exports.checkLogin = async (req, res) => {
             return res.status(400).send('user not found')
         }
         if (await bcrypt.compare(password, user.hash_password)) {
-            const token = jwt.sign(user.identificationId, process.env.ACCESS_TOKEN);
+            console.log(user.role)
+            const token = jwt.sign({id:user.identificationId, role: user.role}, process.env.ACCESS_TOKEN,{
+                expiresIn: 345600// 4day
+            });
             return res.status(200).json({
                 "token": token
             })

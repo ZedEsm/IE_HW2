@@ -1,4 +1,4 @@
-const db = require('../models')
+const db = require('../utils')
 const Educational_Manager = db.educational_manager
 const bcrypt = require('bcrypt')
 exports.create = async (req, res) => {
@@ -14,6 +14,8 @@ exports.create = async (req, res) => {
     } = req.body
 
     const hash_password = await bcrypt.hash(String(password),10);
+    const role = "manager";
+
     const educationalManager = new Educational_Manager({
         college,
         firstName,
@@ -21,7 +23,8 @@ exports.create = async (req, res) => {
         identificationId,
         hash_password,
         email,
-        phoneNumber
+        phoneNumber,
+        role
     })
 
     educationalManager.save().then(() => {

@@ -1,4 +1,4 @@
-const db = require('../models')
+const db = require('../utils')
 const Student = db.student
 const bcrypt = require('bcrypt')
 
@@ -18,6 +18,7 @@ exports.create = async (req, res) => {
         field} = req.body;
 
     const hash_password = await bcrypt.hash(String(password),10);
+    const role = "student";
     const student = new Student({
         firstName,
         lastName,
@@ -30,7 +31,8 @@ exports.create = async (req, res) => {
         incomingSemester,
         GPA,
         college,
-        field
+        field,
+        role
     })
 
     student.save().then(() => {

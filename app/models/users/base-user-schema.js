@@ -13,7 +13,11 @@ module.exports = mongoose => {
                 identificationId: {type: Number, unique: true},
                 hash_password: String,
                 email: String,
-                phoneNumber: Number
+                phoneNumber: Number,
+                role: {
+                    type: String,
+                    enum: ["admin", "student", "professor", "manager"]
+                }
 
             }, baseOption)
     )
