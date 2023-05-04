@@ -11,7 +11,7 @@ module.exports = mongoose => {
                 firstName: String,
                 lastName: String,
                 identificationId: {type: Number, unique: true},
-                password: Number,
+                hash_password: String,
                 email: String,
                 phoneNumber: Number
 

@@ -6,7 +6,7 @@ module.exports = app => {
 
 
     //route.route("/admin/student/:id")
-    route.post("/admin/student", createStudent.create)
+    route.post("/admin/student" ,createStudent.create)
     route.put("/admin/student/:id", createStudent.update)
     route.delete("/admin/student/:id", createStudent.delete)
     route.get("/admin/students", createStudent.getStudents)

@@ -1,10 +1,28 @@
 const db = require('../models')
 const Educational_Manager = db.educational_manager
-
-exports.create = (req, res) => {
+const bcrypt = require('bcrypt')
+exports.create = async (req, res) => {
     console.log(req.body)
+    const {
+        college,
+        firstName,
+        lastName,
+        identificationId,
+        password,
+        email,
+        phoneNumber
+    } = req.body
 
-    const educationalManager = new Educational_Manager(req.body)
+    const hash_password = await bcrypt.hash(String(password),10);
+    const educationalManager = new Educational_Manager({
+        college,
+        firstName,
+        lastName,
+        identificationId,
+        hash_password,
+        email,
+        phoneNumber
+    })
 
     educationalManager.save().then(() => {
         res.send(educationalManager)

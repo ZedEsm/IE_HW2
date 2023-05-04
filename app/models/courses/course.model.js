@@ -9,8 +9,14 @@ module.exports = mongoose => {
         mongoose.Schema(
             {
                 name: String,
-                prerequisite: String,
-                co_requisite: String,
+                prerequisite: [{
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'courses'
+                }],
+                co_requisite: [{
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'courses'
+                }],
                 credit: Number,
                 course_type: {
                     type: String,

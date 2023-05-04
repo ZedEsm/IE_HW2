@@ -1,10 +1,37 @@
 const db = require('../models')
 const Student = db.student
+const bcrypt = require('bcrypt')
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
     console.log(req.body)
+    const {firstName,
+        lastName,
+        identificationId,
+        password,
+        email,
+        phoneNumber,
+        degree,
+        entryYear,
+        incomingSemester,
+        GPA,
+        college,
+        field} = req.body;
 
-    const student = new Student(req.body)
+    const hash_password = await bcrypt.hash(String(password),10);
+    const student = new Student({
+        firstName,
+        lastName,
+        identificationId,
+        hash_password,
+        email,
+        phoneNumber,
+        degree,
+        entryYear,
+        incomingSemester,
+        GPA,
+        college,
+        field
+    })
 
     student.save().then(() => {
         res.send(student)
