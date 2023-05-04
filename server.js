@@ -19,7 +19,7 @@ db.mongoose
     });
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 require('./app/routes/it-manager.routes')(app)
 require('./app/routes/educational-manager.routes')(app)

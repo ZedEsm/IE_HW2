@@ -6,7 +6,6 @@ const authenticateUser = require('../midelware/authonticateToken')
 const authenticateAdmin = require('../midelware/authenticateAdmin')
 const createAdmin = require('../controllers/it-manager.controller')
 module.exports = app => {
-    //route.route("/admin/student/:id")
 
     route.post("/admin",createAdmin.create)
 

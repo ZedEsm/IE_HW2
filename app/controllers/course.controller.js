@@ -4,8 +4,6 @@ const Semester_Course = db.semester_course;
 const Course = db.course
 
 exports.create = (req, res) => {
-    console.log(req.body)
-
     const {
         course_date_time,
         exam_date_time,
