@@ -45,7 +45,7 @@ exports.create = async (req, res) => {
 
 exports.update = (req, res) => {
     if (!req.body) {
-        return res.status(400).send({
+        return res.status(400).json({
             message: "Data to update can not be empty!"
         });
     }

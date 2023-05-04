@@ -23,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 require('./app/routes/it-manager.routes')(app)
 require('./app/routes/educational-manager.routes')(app)
+require('./app/routes/login.routes')(app)
 app.use(express.urlencoded({extended: true}));
 
 const PORT = process.env.PORT || 3001;
