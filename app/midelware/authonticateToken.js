@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken")
 exports.authenticate = (req, res,next) =>{
-    const authenticate = req.headers['authenticate'];
+    const authenticate = req.headers['authorization'];
     const token = authenticate && authenticate.split(' ')[1]
     if(token==null){
         return res.status(401).json({"message":"token not found"})

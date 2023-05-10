@@ -1,4 +1,4 @@
-const db = require('../utils')
+const db = require('../models')
 const Professor = db.professor
 const bcrypt = require('bcrypt')
 exports.create = async (req, res) => {

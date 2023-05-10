@@ -1,4 +1,4 @@
-const db = require('../utils')
+const db = require('../models')
 const Approved_Courses = db.approved_course;
 const Semester_Course = db.semester_course;
 const Course = db.course

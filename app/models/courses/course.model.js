@@ -1,6 +1,6 @@
 const baseOption = {
     collection: "courses",
-    timeStamp: true,
+    timeStamps: true,
 }
 module.exports = mongoose => {
 

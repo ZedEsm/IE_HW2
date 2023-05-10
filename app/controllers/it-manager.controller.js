@@ -1,4 +1,4 @@
-const db = require('../utils')
+const db = require('../models')
 const Admin = db.it_manager
 const bcrypt = require('bcrypt')
 

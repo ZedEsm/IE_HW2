@@ -8,6 +8,10 @@ module.exports = mongoose => {
         GPA: Number,
         college: String,
         field: String,
+        courses:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'courses'
+        }],
     });
     return BaseUserSchema(mongoose).discriminator("students", Student);
 };
