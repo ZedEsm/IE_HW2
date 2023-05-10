@@ -4,7 +4,8 @@ const bcrypt = require('bcrypt')
 
 exports.create = async (req, res) => {
     console.log(req.body)
-    const {firstName,
+    const {
+        firstName,
         lastName,
         identificationId,
         password,
@@ -19,7 +20,7 @@ exports.create = async (req, res) => {
         courses
     } = req.body;
 
-    const hash_password = await bcrypt.hash(String(password),10);
+    const hash_password = await bcrypt.hash(String(password), 10);
     const role = "student";
     const student = new Student({
         firstName,
@@ -123,4 +124,28 @@ exports.getStudentById = (req, res) => {
         });
 }
 
-
+exports.updateField = (req, res) => {
+    const student_id = req.query.id;
+    Student.findOne(student_id)
+        .then(data => {
+            Student.findByIdAndUpdate(data.id, req.body, {useFindAndModify: false})
+                .then(data => {
+                    if (!data) {
+                        res.status(404).send({
+                            message: `Cannot update Student with id=${data.id}. Maybe Student was not found!`
+                        });
+                    } else res.send({message: "Student was updated successfully."});
+                })
+                .catch(() => {
+                    res.status(500).send({
+                        message: "Error updating Student with id=" + data.id
+                    });
+                });
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving student."
+            });
+        });
+}

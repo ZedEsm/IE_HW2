@@ -10,7 +10,7 @@ exports.authenticate = (req, res,next) =>{
             return res.status(403).json({"message": err.message || "token not verified"})
         req.id = data.id
         req.role = data.role;
-        console.log(data)
+
         next()
    })
 }

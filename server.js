@@ -31,6 +31,7 @@ app.use(apiLimiter)
 require('./app/routes/it-manager.routes')(app)
 require('./app/routes/educational-manager.routes')(app)
 require('./app/routes/login.routes')(app)
+require('./app/routes/student.routes')(app)
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
