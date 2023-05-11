@@ -9,7 +9,7 @@ module.exports = app => {
     route.post("/course",[authenticateUser.authenticate,authenticateManager.authenticate], create_approved_course.create)
     route.put("/course/:id", [authenticateUser.authenticate,authenticateManager.authenticate],create_approved_course.update)
     route.delete("/course/:id",[authenticateUser.authenticate,authenticateManager.authenticate], create_approved_course.delete)
-    route.get("/courses",[authenticateUser.authenticate,authenticateManager.authenticate], create_approved_course.getCourses)
+    // route.get("/courses",[authenticateUser.authenticate,authenticateManager.authenticate], create_approved_course.getCourses)
     route.get("/course/:id",[authenticateUser.authenticate,authenticateManager.authenticate], create_approved_course.getCourseById)
 
     route.get("/students",[authenticateUser.authenticate,authenticateManager.authenticate],student.getStudents)

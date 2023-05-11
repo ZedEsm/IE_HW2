@@ -22,6 +22,7 @@ module.exports = mongoose => {
                     type: String,
                     enum: ['APPROVED','SEMESTER']
                 },
+                field:String
             }, baseOption)
     )
 

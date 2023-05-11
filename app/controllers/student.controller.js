@@ -125,27 +125,30 @@ exports.getStudentById = (req, res) => {
 }
 
 exports.updateField = (req, res) => {
-    const student_id = req.query.id;
-    Student.findOne(student_id)
-        .then(data => {
-            Student.findByIdAndUpdate(data.id, req.body, {useFindAndModify: false})
-                .then(data => {
-                    if (!data) {
-                        res.status(404).send({
-                            message: `Cannot update Student with id=${data.id}. Maybe Student was not found!`
+    if(req.params.id && req.params.id.toString()===req.id.toString()) {
+        const student_id = req.params.id;
+        Student.findOne({identificationId: student_id})
+            .then(data => {
+                console.log(data)
+                Student.findByIdAndUpdate(data.id, req.body, {useFindAndModify: false})
+                    .then(data => {
+                        if (!data) {
+                            res.status(404).send({
+                                message: `Cannot update Student with id=${data.id}. Maybe Student was not found!`
+                            });
+                        } else res.send({message: "Student was updated successfully."});
+                    })
+                    .catch(() => {
+                        res.status(500).send({
+                            message: "Error updating Student with id=" + data.id
                         });
-                    } else res.send({message: "Student was updated successfully."});
-                })
-                .catch(() => {
-                    res.status(500).send({
-                        message: "Error updating Student with id=" + data.id
                     });
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message:
+                        err.message || "Some error occurred while retrieving student."
                 });
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving student."
             });
-        });
+    }
 }
