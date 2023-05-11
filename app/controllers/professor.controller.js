@@ -12,7 +12,9 @@ exports.create = async (req, res) => {
          identificationId,
          password,
          email,
-         phoneNumber} = req.body
+         phoneNumber,
+         courses
+     } = req.body
     const hash_password = await bcrypt.hash(String(password),10);
     const role = "professor";
 
@@ -26,7 +28,8 @@ exports.create = async (req, res) => {
         hash_password,
         email,
         phoneNumber,
-        role
+        role,
+        courses
     })
 
     professor.save().then(() => {

@@ -3,7 +3,7 @@ const Approved_Courses = db.approved_course;
 const Semester_Course = db.semester_course;
 const Course = db.course
 const Student = db.student
-
+const Users = db.users
 exports.create = (req, res) => {
     const {
         course_date_time,
@@ -108,7 +108,7 @@ exports.delete = (req, res) => {
         });
 };
 
-exports.getCourses = async (req, res) => {
+exports.getCourses = (req, res) => {
     if (req.role === "manager") {
         Course.find()
             .then(data => {
@@ -123,27 +123,34 @@ exports.getCourses = async (req, res) => {
     } else if (req.role === "student" || req.role === "professor") {
         const student_id = req.id
         const field = req.query.field;
-        Student.findOne({identificationId: student_id})
+        Users.findOne({identificationId: student_id})
             .then(data => {
-                data.populate("courses").then(data =>{
-                     Course.find({field: field})
-                        .then(data => {
-                            res.send(data)
-                        })
-                        .catch(err => {
-                            res.status(500).send({
-                                message:
-                                    err.message || "Some error occurred while retrieving courses."
+                data.populate("courses").then(data => {
+                    if (data.field === field) {
+                        Course.find({field: field})
+                            .then(data => {
+                                res.send(data)
+                            })
+                            .catch(err => {
+                                res.status(500).send({
+                                    message:
+                                        err.message || "Some error occurred while retrieving courses."
+                                });
                             });
+                    } else {
+                        res.status(500).send({
+                            message:
+                                "field not found for this user."
                         });
+                    }
                 })
-                    .catch(err=>{
+                    .catch(err => {
                         res.status(500).send({
                             message:
                                 err.message || "Some error occurred while retrieving student courses."
                         });
                     })
-        })
+            })
             .catch(err => {
                 res.status(500).send({
                     message:
@@ -153,6 +160,7 @@ exports.getCourses = async (req, res) => {
         // const data = await Student.findOne({identificationId: student_id})
 
     }
+
 };
 
 exports.getCourseById = (req, res) => {

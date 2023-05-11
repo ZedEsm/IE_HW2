@@ -5,6 +5,10 @@ module.exports = mongoose => {
         college: String,
         field: String,
         rank: String,
+        courses:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'courses'
+        }],
     });
 
     return BaseUserSchema(mongoose).discriminator("professor", Professor);
