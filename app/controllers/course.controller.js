@@ -3,8 +3,9 @@ const Approved_Courses = db.approved_course;
 const Semester_Course = db.semester_course;
 const Course = db.course
 const Users = db.users
+
 exports.create = (req, res) => {
-    const {
+       const {
         course_date_time,
         exam_date_time,
         exam_location,
@@ -52,6 +53,7 @@ exports.create = (req, res) => {
         }).catch(err => {
             res.status(500).send({
                 message: err.message
+
             })
         })
 

@@ -1,8 +1,8 @@
 const create_approved_course = require("../controllers/course.controller");
 const student = require("../controllers/student.controller");
 const professor = require("../controllers/professor.controller")
-const authenticateUser = require('../midelware/auth/authonticateToken')
-const authenticateManager = require('../midelware/auth/authenticateManager')
+const authenticateUser = require('../middelwares/auth/authonticateToken')
+const authenticateManager = require('../middelwares/auth/authenticateManager')
 module.exports = app => {
     const route = require('express').Router();
 

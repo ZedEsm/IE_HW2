@@ -2,7 +2,7 @@ const db = require('../models')
 const Users = db.users
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
-
+const logger = require("../utils/logger")
 exports.checkLogin = async (req, res) => {
     try {
         const userId = req.body.identificationId;
@@ -21,6 +21,8 @@ exports.checkLogin = async (req, res) => {
                 "token": token
             })
         } else {
+            logger.error("Incorrect password",{ metadata: { req: { method: 'POST', originalUrl: '/login', httpVersion: '1.1' } } })
+
             // incorrect password
             return res.status(200).json({
                 "message": "incorrect password"

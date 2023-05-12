@@ -1,0 +1,2 @@
+{"level":"error","message":"Incorrect password","metadata":{"req":{"httpVersion":"1.1","method":"POST","originalUrl":"/login"}},"timestamp":"2023-05-12 15:49:42"}
+{"level":"error","message":"Incorrect password","metadata":{"req":{"httpVersion":"1.1","method":"POST","originalUrl":"/login"}},"timestamp":"2023-05-12 15:54:45"}

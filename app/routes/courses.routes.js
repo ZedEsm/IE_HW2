@@ -1,6 +1,6 @@
 const course = require("../controllers/course.controller");
-const authenticateUser = require('../midelware/auth/authonticateToken')
-const authenticateCoursesAccess = require("../midelware/auth/authenticateCourses")
+const authenticateUser = require('../middelwares/auth/authonticateToken')
+const authenticateCoursesAccess = require("../middelwares/auth/authenticateCourses")
 module.exports = app => {
     const route = require('express').Router();
     route.get("/courses",[authenticateUser.authenticate,authenticateCoursesAccess.authenticate],course.getCourses)
