@@ -1,4 +1,4 @@
-const BaseUserSchema = require("./base-user-schema");
+const BaseUserSchema = require("./baseUser");
 
 module.exports = mongoose => {
     const Student = new mongoose.Schema({

@@ -1,9 +1,9 @@
 const route = require('express').Router();
-const studentRoutes = require('../controllers/student.controller')
-const authenticateStudent = require('../midelware/auth/authenticateStudent')
-const authenticateUser = require("../midelware/auth/authonticateToken");
+const user_route = require('../controllers/user.controller')
+const authenticate_student = require('../midelware/auth/authenticateStudent')
+const authenticate_user = require("../midelware/auth/authonticateToken");
 
 module.exports = app =>{
-    route.put("/student/:id",[authenticateUser.authenticate,authenticateStudent.authenticate],studentRoutes.updateField)
+    route.put("/student/:id",[authenticate_user.authenticate,authenticate_student.authenticate],user_route.updateField)
     app.use(route)
 }
