@@ -1,0 +1,945 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/ZEDESM19_1/Net_Project/1.0.0
+info:
+  description: This is a simple API
+  version: "1.0.0"
+  title: Simple Inventory API
+  contact:
+    email: you@your-company.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: admins
+    description: Secured Admin-only calls
+  - name: developers
+    description: Operations available to regular developers
+paths:
+  /login:
+    post:
+      tags:
+        - developers
+      summary: login
+      operationId: login to app
+      description: |
+        By passing in the appropriate options you can login 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - identificationId
+                - password
+              properties:
+                identificationId:
+                  type: number
+                password:
+                  type: string
+      responses:
+         
+        '200':
+          description: login to app was successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jwt_token:
+                    type: string
+        '400':
+          description: incorrect password
+          $ref: "#/components/responses/BadRequest"
+        '401': 
+          description: invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /admin:
+    post: 
+        tags: 
+         - developers
+        description: |
+          By passing in the appropriate options admin can be save  
+        security:
+          - jwt_auth: [] 
+        requestBody:
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/schemas/IT-Manager"
+        responses:
+          '200':
+            description: admin added successfully
+            content: 
+              application/json:
+                schema:
+                  $ref: '#/components/responses/Success'
+          '403': 
+                 $ref: "#/components/responses/Forbidden"
+          '500':
+                $ref: "#/components/responses/Internal_Server_Error"
+          "400":
+            $ref: "#/components/responses/BadRequest"
+          "401":
+            $ref: "#/components/responses/Unauthorized"    
+          
+  /admin/student:
+    post:
+      tags: 
+       - developers
+      description: |
+        By passing in the appropriate options admin can save student 
+      security:
+        - jwt_auth: [] 
+      requestBody:
+        content:
+          application/json:
+            schema:
+             $ref: "#/components/schemas/student"
+        
+      responses: 
+        '200':
+          description: student added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Success'
+        '403': 
+               $ref: "#/components/responses/Forbidden"
+        '500':
+              $ref: "#/components/responses/Internal_Server_Error"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"    
+  /admin/student/{id}:
+    parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+    put:
+     description: update student user
+     security:
+        - jwt_auth: []
+     requestBody:
+       content:
+         application/json:
+           schema:
+              $ref: '#/components/schemas/student'  
+     responses:
+        '200':
+          description: Student was updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Success'
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+          
+        '403':
+          $ref: "#/components/responses/Forbidden"
+        '500':
+          $ref: "#/components/responses/Internal_Server_Error"  
+    delete:
+      description: delete student by admin 
+      security:
+        - jwt_auth: []
+      responses:
+        '200':
+          description: Student was deleted successfully!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Success'
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '403':
+          $ref: "#/components/responses/Forbidden"
+        '500':
+          $ref: "#/components/responses/Internal_Server_Error"  
+    get:
+      description: get student by admin 
+      security:
+        - jwt_auth: []
+      responses:
+        '200':
+          description: get student by id 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/student'
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '403':
+          $ref: "#/components/responses/Forbidden"
+        '500':
+          $ref: "#/components/responses/Internal_Server_Error"   
+        '404':
+          $ref: "#/components/responses/NotFound"  
+  /admin/students:
+    get: 
+      description: get all students
+      security:
+        - jwt_auth: []
+      responses: 
+        '200': 
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/student'
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '403':
+          $ref: "#/components/responses/Forbidden"
+        '500':
+          $ref: "#/components/responses/Internal_Server_Error"             
+        
+  /admin/Professor:
+    post:
+      tags: 
+       - developers
+      description: |
+        By passing in the appropriate options admin can save professor 
+      security:
+        - jwt_auth: [] 
+      requestBody:
+        content:
+          application/json:
+            schema:
+             $ref: "#/components/schemas/professor"
+        
+      responses: 
+        '200':
+          description: professor added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Success'
+        '403': 
+               $ref: "#/components/responses/Forbidden"
+        '500':
+              $ref: "#/components/responses/Internal_Server_Error"
+        '401':
+          $ref: "#/components/responses/Unauthorized"   
+          
+  /admin/Professor/{id}:
+    parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+    put:
+      description: update professor by admin
+      security:
+        - jwt_auth: [] 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/professor'
+      responses:
+        '200':
+            description: Professor was updated successfully
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/responses/Success'
+        '400':
+            $ref: "#/components/responses/BadRequest"
+        '404':
+            $ref: "#/components/responses/NotFound"
+        '401':
+            $ref: "#/components/responses/Unauthorized"
+            
+        '403':
+            $ref: "#/components/responses/Forbidden"
+        '500':
+            $ref: "#/components/responses/Internal_Server_Error" 
+    delete:
+      description: delete professor by admin 
+      security:
+        - jwt_auth: []
+      responses:
+        '200':
+          description: Professor was deleted successfully!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Success'
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '403':
+          $ref: "#/components/responses/Forbidden"
+        '500':
+          $ref: "#/components/responses/Internal_Server_Error"          
+    get:
+      description: get professor by admin 
+      security:
+        - jwt_auth: []
+      responses:
+        '200':
+          description: get professor by id 
+          content:
+            application/json:
+             schema:
+                $ref: '#/components/schemas/professor'
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '403':
+          $ref: "#/components/responses/Forbidden"
+        '500':
+          $ref: "#/components/responses/Internal_Server_Error"   
+        '404':
+          $ref: "#/components/responses/NotFound"     
+  /admin/Professors:
+    get: 
+      description: get all professors
+      security:
+        - jwt_auth: []
+      responses: 
+        '200': 
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/professor'
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '403':
+          $ref: "#/components/responses/Forbidden"
+        '500':
+          $ref: "#/components/responses/Internal_Server_Error"   
+  /admin/manager:
+    post:
+      tags: 
+       - developers
+      description: |
+        By passing in the appropriate options admin can save manager 
+      security:
+        - jwt_auth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/IT-Manager'
+      responses:
+        '200':
+          description: professor added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Success'
+        '403': 
+               $ref: "#/components/responses/Forbidden"
+        '500':
+              $ref: "#/components/responses/Internal_Server_Error"
+        '401':
+          $ref: "#/components/responses/Unauthorized"   
+            
+  /admin/manager/{id}:
+    parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+    put:
+      description: update manager by admin
+      security:
+        - jwt_auth: [] 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IT-Manager'
+      responses:
+        '200':
+            description: IT-Manager was updated successfully
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/responses/Success'
+        '400':
+            $ref: "#/components/responses/BadRequest"
+        '404':
+            $ref: "#/components/responses/NotFound"
+        '401':
+            $ref: "#/components/responses/Unauthorized"
+            
+        '403':
+            $ref: "#/components/responses/Forbidden"
+        '500':
+            $ref: "#/components/responses/Internal_Server_Error" 
+    delete:
+      description: delete manager by admin 
+      security:
+        - jwt_auth: []
+      responses:
+        '200':
+          description: Manager was deleted successfully!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Success'
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '403':
+          $ref: "#/components/responses/Forbidden"
+        '500':
+          $ref: "#/components/responses/Internal_Server_Error"          
+    get:
+      description: get Manager by admin 
+      security:
+        - jwt_auth: []
+      responses:
+        '200':
+          description: get manager by id 
+          content:
+            application/json:
+             schema:
+                $ref: '#/components/schemas/IT-Manager'
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '403':
+          $ref: "#/components/responses/Forbidden"
+        '500':
+          $ref: "#/components/responses/Internal_Server_Error"   
+        '404':
+          $ref: "#/components/responses/NotFound"    
+  /admin/managers:
+    get: 
+      description: get all managers
+      security:
+        - jwt_auth: []
+      responses: 
+        '200': 
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IT-Manager'
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '403':
+          $ref: "#/components/responses/Forbidden"
+        '500':
+          $ref: "#/components/responses/Internal_Server_Error"          
+  /course:
+    post: 
+      tags: 
+       - developers
+      description: |
+        By passing in the appropriate options manager can save course 
+      security:
+        - jwt_auth: [] 
+      requestBody:
+        content:
+          application/json:
+            schema:
+             $ref: "#/components/schemas/course"
+        
+      responses: 
+        '200':
+          description: course added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Success'
+        '403': 
+               $ref: "#/components/responses/Forbidden"
+        '500':
+              $ref: "#/components/responses/Internal_Server_Error"
+        '401':
+          $ref: "#/components/responses/Unauthorized"  
+  /course/{id}:
+    parameters: 
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+    put:
+      description: update course by manager 
+      security:
+        - jwt_auth: [] 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/course'
+      responses:
+        '200':
+            description: course was updated successfully
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/responses/Success'
+        '400':
+            $ref: "#/components/responses/BadRequest"
+        '404':
+            $ref: "#/components/responses/NotFound"
+        '401':
+            $ref: "#/components/responses/Unauthorized"
+            
+        '403':
+            $ref: "#/components/responses/Forbidden"
+        '500':
+            $ref: "#/components/responses/Internal_Server_Error"  
+    delete:
+      description: delete course by manager 
+      security:
+        - jwt_auth: []
+      responses:
+        '200':
+          description: course was deleted successfully!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Success'
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '403':
+          $ref: "#/components/responses/Forbidden"
+        '500':
+          $ref: "#/components/responses/Internal_Server_Error"            
+    get:
+      description: get course by manager 
+      security:
+        - jwt_auth: []
+      responses:
+        '200':
+          description: get course by id 
+          content:
+            application/json:
+             schema:
+                $ref: '#/components/schemas/course'
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '403':
+          $ref: "#/components/responses/Forbidden"
+        '500':
+          $ref: "#/components/responses/Internal_Server_Error"   
+        '404':
+          $ref: "#/components/responses/NotFound"       
+  /students:
+    get: 
+      description: get all students by manager
+      security:
+        - jwt_auth: []
+      responses: 
+        '200': 
+          description: get all students by manager was successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IT-Manager'
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '403':
+          $ref: "#/components/responses/Forbidden"
+        '500':
+          $ref: "#/components/responses/Internal_Server_Error"     
+  /student/{id}:
+    parameters: 
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+    put:
+      description: update student by student 
+      security:
+        - jwt_auth: [] 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/student'
+      responses:
+        '200':
+            description: student was updated successfully
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/responses/Success'
+        '400':
+            $ref: "#/components/responses/BadRequest"
+        '404':
+            $ref: "#/components/responses/NotFound"
+        '401':
+            $ref: "#/components/responses/Unauthorized"
+            
+        '403':
+            $ref: "#/components/responses/Forbidden"
+        '500':
+            $ref: "#/components/responses/Internal_Server_Error" 
+            
+    get:
+      description: get student by manager 
+      security:
+        - jwt_auth: []
+      responses:
+        '200':
+          description: get stuent by id 
+          content:
+            application/json:
+             schema:
+                $ref: '#/components/schemas/student'
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '403':
+          $ref: "#/components/responses/Forbidden"
+        '500':
+          $ref: "#/components/responses/Internal_Server_Error"   
+        '404':
+          $ref: "#/components/responses/NotFound"           
+  
+  /professors:
+    get:  
+      description: get all professors by manager
+      security:
+        - jwt_auth: []
+      responses: 
+        '200': 
+          description: get all professors by manager was successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/professor'
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '403':
+          $ref: "#/components/responses/Forbidden"
+        '500':
+          $ref: "#/components/responses/Internal_Server_Error"   
+  /professor/{id}:
+     parameters: 
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+     get: 
+      description: get professor by manager 
+      security:
+        - jwt_auth: []
+      responses:
+        '200':
+          description: get professor by id  
+          content:
+            application/json:
+             schema:
+                $ref: '#/components/schemas/professor'
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '403':
+          $ref: "#/components/responses/Forbidden"
+        '500':
+          $ref: "#/components/responses/Internal_Server_Error"   
+        '404':
+          $ref: "#/components/responses/NotFound" 
+     put:
+        description: update student by student 
+        security:
+          - jwt_auth: [] 
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/student'
+        responses:
+          '200':
+              description: student was updated successfully
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/responses/Success'
+          '400':
+              $ref: "#/components/responses/BadRequest"
+          '404':
+              $ref: "#/components/responses/NotFound"
+          '401':
+              $ref: "#/components/responses/Unauthorized"
+              
+          '403':
+              $ref: "#/components/responses/Forbidden"
+          '500':
+              $ref: "#/components/responses/Internal_Server_Error"  
+  /courses:
+    get: 
+      description: get all courses by student manager and professor 
+      security:
+        - jwt_auth: []
+      responses: 
+        '200': 
+          description: get all courses by manager professor and student was successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/course'
+        '401':
+          $ref: "#/components/responses/Unauthorized"
+        '403':
+          $ref: "#/components/responses/Forbidden"
+        '500':
+          $ref: "#/components/responses/Internal_Server_Error"    
+        
+          
+  
+  
+   
+components:
+  responses:          
+    BadRequest:
+      description: validation error
+      content:
+        application/json: 
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    Success:
+      description: ok
+      content:
+        application/json: 
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+    NotFound:
+      description: data was not found
+      content: 
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    Internal_Server_Error:
+        description: data was not found
+        content:  
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+    
+    Forbidden:
+      description: authorization failed 
+      content: 
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string            
+    Unauthorized:
+      description: invalid or missing credentials
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string                        
+    
+  schemas:
+    user:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - identificationId
+        - hash_password
+        - email
+        - phoneNumber
+        - role 
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        identificationId:
+          type: number
+        hash_password:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: number
+        role:
+          type: string
+          enum:
+             - admin
+             - student 
+             - professor
+             - manager 
+    student:
+      allOf:
+        - $ref: '#/components/schemas/user'
+      type: object
+      required:
+        - degree
+        - entryYear
+        - incomingSemester
+        - GPA
+        - college
+        - field
+        - courses 
+      properties:
+        degree:
+          type: string
+        entryYear:
+          type: number
+        incomingSemester:
+          type: number
+        GPA:
+          type: number
+        college:
+          type: string
+        field:
+          type: number
+        courses:
+          type: array
+          items:
+          $ref: '#/components/schemas/course'
+    course:
+      type: object
+      required:
+        - course_type
+        - name
+        - credit
+        - prerequisite
+        - co_requisite
+        - field
+      properties:
+        course_type:
+          type: string
+          enum:
+            - APPROVED
+            - SEMESTER
+        name:
+          type: string
+        prerequisite:
+          type: array
+          items:
+           $ref: '#/components/schemas/course'
+        co_requisite:
+          type: array
+          items:
+            $ref: '#/components/schemas/course'
+        credit:
+          type: number
+        field:
+         type: string
+    professor:
+      allOf:
+        - $ref: '#/components/schemas/user'
+      type: object
+      required:
+        - college
+        - field
+        - rank
+        - courses
+      properties:
+        college:
+          type: string
+        field:
+          type: string
+        rank:
+          type: string
+        courses:
+          type: array
+          items:
+          $ref: '#/components/schemas/course'  
+    education-manager: 
+      allOf:
+        - $ref: '#/components/schemas/user'
+      type: object
+      required:
+        - college
+      properties:
+        college:
+         type: string
+    IT-Manager: 
+      allOf:
+        - $ref: '#/components/schemas/user'
+        
+    approved-course: 
+      allOf:
+        - $ref: '#/components/schemas/course'
+    semester_course: 
+      allOf:
+        - $ref: '#/components/schemas/course'    
+      type: object
+      required:
+        - course_date_time
+        - exam_date_time
+        - exam_location
+        - professor_course
+        - capacity
+        - academic_semester
+      properties:
+        course_date_time:
+          type: string
+          format: date-time
+          description: The date and time of the exam in ISO 8601 format
+        exam_date_time:
+          type: string
+          format: date-time
+          description: The date and time of the exam in ISO 8601 format
+        exam_location:
+          type: string 
+          
+        professor_course:
+          type: string
+          description: The ID of the professor who teaches the course
+          example: 12345
+        capacity:
+          type: number 
+        academic_semester:
+         type: number
+  securitySchemes:
+    jwt_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
