@@ -129,7 +129,7 @@ exports.update = (req, res) => {
                         }
                     }
                 })
-                res.send({message: "course was updated successfully."});
+                res.status(200).send({message: "course was updated successfully."});
             }
         })
         .catch(() => {
@@ -269,7 +269,7 @@ exports.getCourseById = (req, res) => {
         Course.findById(id)
             .then((data) => {
                 if (!data) res.status(404).send({message: "Not found course with id " + id});
-                else res.send(data);
+                else res.status(200).send(data);
             })
             .catch(() => {
                 logger.error("Some error occurred while retrieving courses", {

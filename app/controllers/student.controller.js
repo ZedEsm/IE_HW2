@@ -50,7 +50,7 @@ exports.create = async (req, res) => {
                 }
             }
         })
-        res.send(student)
+        res.status(200).send(student)
 
     }).catch(err => {
         logger.error("Some error occurred while saving student", {
@@ -83,7 +83,7 @@ exports.update = (req, res) => {
                 res.status(404).send({
                     message: `Cannot update Student with id=${id}. Maybe Student was not found!`
                 });
-            } else res.send({message: "Student was updated successfully."});
+            } else res.status(200).send({message: "Student was updated successfully."});
         })
         .catch(() => {
             logger.error("Some error occurred while updating student", {
@@ -111,7 +111,7 @@ exports.delete = (req, res) => {
                     message: `Cannot delete Student with id=${id}. Maybe Student was not found!`
                 });
             } else {
-                res.send({
+                res.status(200).send({
                     message: "Student was deleted successfully!"
                 });
             }
@@ -135,7 +135,7 @@ exports.delete = (req, res) => {
 exports.getStudents = (req, res) => {
     Student.find()
         .then(data => {
-            res.send(data)
+            res.status(200).send(data)
         })
         .catch(err => {
             logger.error("Some error occurred while retrieving students", {
@@ -171,7 +171,7 @@ exports.getStudentById = (req, res) => {
                         }
                     }
                 })
-                res.send(data);}
+                res.status(200).send(data);}
         })
         .catch(() => {
             logger.error("Some error occurred while retrieving student by id", {

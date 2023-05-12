@@ -29,7 +29,7 @@ exports.create = async (req, res) => {
     })
 
     educationalManager.save().then(() => {
-        res.send(educationalManager)
+        res.status(200).send(educationalManager)
 
     }).catch(err => {
         logger.error("Some error occurred while saving educational manager", {
@@ -71,7 +71,7 @@ exports.update = (req, res) => {
                 res.status(404).send({
                     message: `Cannot update educational-manager with id=${id}. Maybe educational-manager was not found!`
                 });
-            } else res.send({message: "Educational_Manager was updated successfully."});
+            } else res.status(200).send({message: "Educational_Manager was updated successfully."});
         })
         .catch(() => {
             logger.error("Error updating Educational_Manager with id", {
@@ -99,7 +99,7 @@ exports.delete = (req, res) => {
                     message: `Cannot delete Educational_Manager with id=${id}. Maybe Educational_Manager was not found!`
                 });
             } else {
-                res.send({
+                res.status(200).send({
                     message: "Educational_Manager was deleted successfully!"
                 });
             }
@@ -123,7 +123,7 @@ exports.delete = (req, res) => {
 exports.getEducationalManager = (req, res) => {
     Educational_Manager.find()
         .then(data => {
-            res.send(data)
+            res.status(200).send(data)
         })
         .catch(err => {
             logger.error("Could not get Educational_Manager", {
@@ -149,7 +149,7 @@ exports.getEducationalManagerById = (req, res) => {
         .then(data => {
             if (!data)
                 res.status(404).send({message: "Not found educational-manager with id " + id});
-            else res.send(data);
+            else res.status(200).send(data);
         })
         .catch(() => {
             logger.error("rror retrieving Educational_Manager with id", {

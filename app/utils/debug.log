@@ -15,3 +15,4 @@
 {"level":"error","message":"Some error occurred while retrieving courses","metadata":{"req":{"httpVersion":"1.1","method":"GET","originalUrl":"/course/645cc87ccd57698488bfaaa052?field=dentist"}},"timestamp":"2023-05-12 16:39:26"}
 {"level":"error","message":"Some error occurred while retrieving courses","metadata":{"req":{"httpVersion":"1.1","method":"GET","originalUrl":"/course/645cc87ccd57698dd488bfa052?field=dentist"}},"timestamp":"2023-05-12 16:40:28"}
 {"level":"error","message":"field not found for this user","metadata":{"req":{"httpVersion":"1.1","method":"GET","originalUrl":"/courses?field=literss"}},"timestamp":"2023-05-12 16:56:30"}
+{"level":"info","message":"Student saved successfully","metadata":{"req":{"httpVersion":"1.1","method":"POST","originalUrl":"/api/posts/admin/student"}},"timestamp":"2023-05-12 22:16:07"}

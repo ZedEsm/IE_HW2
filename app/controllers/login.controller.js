@@ -31,13 +31,13 @@ exports.checkLogin = async (req, res) => {
             })
 
             // incorrect password
-            return res.status(200).json({
+            return res.status(400).json({
                 "message": "incorrect password"
             })
         }
     } catch (err) {
         // can't login
-        return res.status(200).json({
+        return res.status(401).json({
             "message": err.message
         })
     }

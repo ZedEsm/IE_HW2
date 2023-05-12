@@ -34,7 +34,7 @@ exports.create = async (req, res) => {
     })
 
     professor.save().then(() => {
-        res.send(professor)
+        res.status(200).send(professor)
 
     }).catch(err => {
         logger.error("Error retrieving while saving professor", {
@@ -67,7 +67,7 @@ exports.update = (req, res) => {
                 res.status(404).send({
                     message: `Cannot update professor with id=${id}. Maybe Professor was not found!`
                 });
-            } else res.send({message: "Professor was updated successfully."});
+            } else res.status(200).send({message: "Professor was updated successfully."});
         })
         .catch(() => {
             logger.error("Error updating Professor with id", {
@@ -104,7 +104,7 @@ exports.delete = (req, res) => {
                         }
                     }
                 })
-                res.send({
+                res.status(200).send({
                     message: "Professor was deleted successfully!"
                 });
             }
