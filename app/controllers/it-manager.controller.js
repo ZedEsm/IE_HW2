@@ -1,9 +1,9 @@
 const db = require('../models')
 const Admin = db.it_manager
 const bcrypt = require('bcrypt')
+const logger = require("../utils/logger");
 
 exports.create = async (req, res) => {
-    console.log(req.body)
     const {firstName,
         lastName,
         identificationId,
@@ -28,6 +28,15 @@ exports.create = async (req, res) => {
         res.status(200).json({"message":"admin saved"})
 
     }).catch(err => {
+        logger.error("error occurred while saving admin", {
+            metadata: {
+                req: {
+                    method: req.method,
+                    originalUrl: req.originalUrl,
+                    httpVersion: req.httpVersion
+                }
+            }
+        })
         res.status(500).send({
             message: err.message
         })

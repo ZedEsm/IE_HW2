@@ -1,6 +1,7 @@
 const db = require('../models')
 const Student = db.student
 const bcrypt = require('bcrypt')
+const logger = require("../utils/logger");
 
 exports.create = async (req, res) => {
     console.log(req.body)
@@ -40,9 +41,27 @@ exports.create = async (req, res) => {
     })
 
     student.save().then(() => {
+        logger.info("Student saved successfully", {
+            metadata: {
+                req: {
+                    method: req.method,
+                    originalUrl: req.originalUrl,
+                    httpVersion: req.httpVersion
+                }
+            }
+        })
         res.send(student)
 
     }).catch(err => {
+        logger.error("Some error occurred while saving student", {
+            metadata: {
+                req: {
+                    method: req.method,
+                    originalUrl: req.originalUrl,
+                    httpVersion: req.httpVersion
+                }
+            }
+        })
         res.status(500).send({
             message: err.message
         })
@@ -67,6 +86,15 @@ exports.update = (req, res) => {
             } else res.send({message: "Student was updated successfully."});
         })
         .catch(() => {
+            logger.error("Some error occurred while updating student", {
+                metadata: {
+                    req: {
+                        method: req.method,
+                        originalUrl: req.originalUrl,
+                        httpVersion: req.httpVersion
+                    }
+                }
+            })
             res.status(500).send({
                 message: "Error updating Student with id=" + id
             });
@@ -89,6 +117,15 @@ exports.delete = (req, res) => {
             }
         })
         .catch(() => {
+            logger.error("Some error occurred while deleting student", {
+                metadata: {
+                    req: {
+                        method: req.method,
+                        originalUrl: req.originalUrl,
+                        httpVersion: req.httpVersion
+                    }
+                }
+            })
             res.status(500).send({
                 message: "Could not delete Student with id=" + id
             });
@@ -101,6 +138,15 @@ exports.getStudents = (req, res) => {
             res.send(data)
         })
         .catch(err => {
+            logger.error("Some error occurred while retrieving students", {
+                metadata: {
+                    req: {
+                        method: req.method,
+                        originalUrl: req.originalUrl,
+                        httpVersion: req.httpVersion
+                    }
+                }
+            })
             res.status(500).send({
                 message:
                     err.message || "Some error occurred while retrieving students."
@@ -115,9 +161,28 @@ exports.getStudentById = (req, res) => {
         .then(data => {
             if (!data)
                 res.status(404).send({message: "Not found Student with id " + id});
-            else res.send(data);
+            else {
+                logger.info("Get student by id successfully", {
+                    metadata: {
+                        req: {
+                            method: req.method,
+                            originalUrl: req.originalUrl,
+                            httpVersion: req.httpVersion
+                        }
+                    }
+                })
+                res.send(data);}
         })
         .catch(() => {
+            logger.error("Some error occurred while retrieving student by id", {
+                metadata: {
+                    req: {
+                        method: req.method,
+                        originalUrl: req.originalUrl,
+                        httpVersion: req.httpVersion
+                    }
+                }
+            })
             res
                 .status(500)
                 .send({message: "Error retrieving Student with id=" + id});

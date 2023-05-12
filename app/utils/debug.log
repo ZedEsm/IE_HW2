@@ -1,3 +1,17 @@
 {"level":"error","message":"Incorrect password","metadata":{"req":{"httpVersion":"1.1","method":"POST","originalUrl":"/login"}},"timestamp":"2023-05-12 15:49:42"}
 {"level":"error","message":"Incorrect password","metadata":{"req":{"httpVersion":"1.1","method":"POST","originalUrl":"/login"}},"timestamp":"2023-05-12 15:54:45"}
 {"level":"error","message":"Incorrect password","metadata":{"req":{"httpVersion":"1.1","method":"POST","originalUrl":"/login"}},"timestamp":"2023-05-12 15:58:41"}
+{"level":"error","message":"Incorrect password","metadata":{"req":{"httpVersion":"1.1","method":"POST","originalUrl":"/login"}},"timestamp":"2023-05-12 16:01:52"}
+{"level":"error","message":"Incorrect password","metadata":{"req":{"httpVersion":"1.1","method":"POST","originalUrl":"/login","status":200}},"timestamp":"2023-05-12 16:02:41"}
+{"level":"error","message":"Incorrect password","metadata":{"req":{"httpVersion":"1.1","method":"POST","originalUrl":"/login"}},"timestamp":"2023-05-12 16:05:35"}
+{"level":"error","message":"Incorrect password","metadata":{"req":{"httpVersion":"1.1","method":"POST","originalUrl":"/login","statusCode":null}},"timestamp":"2023-05-12 16:13:11"}
+{"level":"error","message":"Incorrect password","metadata":{"req":{"httpVersion":"1.1","method":"POST","originalUrl":"/login"}},"timestamp":"2023-05-12 16:13:57"}
+{"level":"error","message":"Incorrect password","metadata":{"req":{"httpVersion":"1.1","method":"POST","originalUrl":"/login"}},"timestamp":"2023-05-12 16:14:18"}
+{"level":"error","message":"Incorrect password","metadata":{"req":{"httpVersion":"1.1","method":"POST","originalUrl":"/login","statusCode":null}},"timestamp":"2023-05-12 16:14:44"}
+{"level":"error","message":"Incorrect password","metadata":{"req":{"httpVersion":"1.1","method":"POST","originalUrl":"/login"}},"timestamp":"2023-05-12 16:15:02"}
+{"level":"error","message":"Incorrect password","metadata":{"req":{"httpVersion":"1.1","method":"POST","originalUrl":"/login"}},"timestamp":"2023-05-12 16:17:19"}
+{"level":"error","message":"Incorrect password","metadata":{"req":{"httpVersion":"1.1","method":"POST","originalUrl":"/login"}},"timestamp":"2023-05-12 16:18:32"}
+{"level":"info","message":"course saved successfully","metadata":{"req":{"httpVersion":"1.1","method":"POST","originalUrl":"/course"}},"timestamp":"2023-05-12 16:24:02"}
+{"level":"error","message":"Some error occurred while retrieving courses","metadata":{"req":{"httpVersion":"1.1","method":"GET","originalUrl":"/course/645cc87ccd57698488bfaaa052?field=dentist"}},"timestamp":"2023-05-12 16:39:26"}
+{"level":"error","message":"Some error occurred while retrieving courses","metadata":{"req":{"httpVersion":"1.1","method":"GET","originalUrl":"/course/645cc87ccd57698dd488bfa052?field=dentist"}},"timestamp":"2023-05-12 16:40:28"}
+{"level":"error","message":"field not found for this user","metadata":{"req":{"httpVersion":"1.1","method":"GET","originalUrl":"/courses?field=literss"}},"timestamp":"2023-05-12 16:56:30"}

@@ -1,6 +1,7 @@
 const db = require('../models')
 const Educational_Manager = db.educational_manager
 const bcrypt = require('bcrypt')
+const logger = require("../utils/logger");
 exports.create = async (req, res) => {
     console.log(req.body)
     const {
@@ -31,6 +32,15 @@ exports.create = async (req, res) => {
         res.send(educationalManager)
 
     }).catch(err => {
+        logger.error("Some error occurred while saving educational manager", {
+            metadata: {
+                req: {
+                    method: req.method,
+                    originalUrl: req.originalUrl,
+                    httpVersion: req.httpVersion
+                }
+            }
+        })
         res.status(500).send({
             message: err.message
         })
@@ -39,6 +49,15 @@ exports.create = async (req, res) => {
 
 exports.update = (req, res) => {
     if (!req.body) {
+        logger.warn("Data to update can not be empty!", {
+            metadata: {
+                req: {
+                    method: req.method,
+                    originalUrl: req.originalUrl,
+                    httpVersion: req.httpVersion
+                }
+            }
+        })
         return res.status(400).send({
             message: "Data to update can not be empty!"
         });
@@ -55,6 +74,15 @@ exports.update = (req, res) => {
             } else res.send({message: "Educational_Manager was updated successfully."});
         })
         .catch(() => {
+            logger.error("Error updating Educational_Manager with id", {
+                metadata: {
+                    req: {
+                        method: req.method,
+                        originalUrl: req.originalUrl,
+                        httpVersion: req.httpVersion
+                    }
+                }
+            })
             res.status(500).send({
                 message: "Error updating Educational_Manager with id=" + id
             });
@@ -77,6 +105,15 @@ exports.delete = (req, res) => {
             }
         })
         .catch(() => {
+            logger.error("Could not delete Educational_Manager with id", {
+                metadata: {
+                    req: {
+                        method: req.method,
+                        originalUrl: req.originalUrl,
+                        httpVersion: req.httpVersion
+                    }
+                }
+            })
             res.status(500).send({
                 message: "Could not delete Educational_Manager with id=" + id
             });
@@ -89,6 +126,15 @@ exports.getEducationalManager = (req, res) => {
             res.send(data)
         })
         .catch(err => {
+            logger.error("Could not get Educational_Manager", {
+                metadata: {
+                    req: {
+                        method: req.method,
+                        originalUrl: req.originalUrl,
+                        httpVersion: req.httpVersion
+                    }
+                }
+            })
             res.status(500).send({
                 message:
                     err.message || "Some error occurred while retrieving educational-manager."
@@ -106,6 +152,15 @@ exports.getEducationalManagerById = (req, res) => {
             else res.send(data);
         })
         .catch(() => {
+            logger.error("rror retrieving Educational_Manager with id", {
+                metadata: {
+                    req: {
+                        method: req.method,
+                        originalUrl: req.originalUrl,
+                        httpVersion: req.httpVersion
+                    }
+                }
+            })
             res
                 .status(500)
                 .send({message: "Error retrieving Educational_Manager with id=" + id});

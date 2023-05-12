@@ -3,9 +3,9 @@ const Approved_Courses = db.approved_course;
 const Semester_Course = db.semester_course;
 const Course = db.course
 const Users = db.users
-
+const logger = require("../utils/logger")
 exports.create = (req, res) => {
-       const {
+    const {
         course_date_time,
         exam_date_time,
         exam_location,
@@ -28,8 +28,26 @@ exports.create = (req, res) => {
             field,
         })
         approvedCourses.save().then(() => {
+            logger.info("course saved successfully", {
+                metadata: {
+                    req: {
+                        method: req.method,
+                        originalUrl: req.originalUrl,
+                        httpVersion: req.httpVersion
+                    }
+                }
+            })
             res.send(approvedCourses)
         }).catch(err => {
+            logger.error("error occurred while saving course", {
+                metadata: {
+                    req: {
+                        method: req.method,
+                        originalUrl: req.originalUrl,
+                        httpVersion: req.httpVersion
+                    }
+                }
+            })
             res.status(500).send({
                 message: err.message
             })
@@ -49,8 +67,26 @@ exports.create = (req, res) => {
             field,
         })
         semesterCourse.save().then(() => {
+            logger.info("course saved successfully", {
+                metadata: {
+                    req: {
+                        method: req.method,
+                        originalUrl: req.originalUrl,
+                        httpVersion: req.httpVersion
+                    }
+                }
+            })
             res.send(semesterCourse)
         }).catch(err => {
+            logger.error("error occurred while saving course", {
+                metadata: {
+                    req: {
+                        method: req.method,
+                        originalUrl: req.originalUrl,
+                        httpVersion: req.httpVersion
+                    }
+                }
+            })
             res.status(500).send({
                 message: err.message
 
@@ -71,12 +107,41 @@ exports.update = (req, res) => {
     Course.findByIdAndUpdate(id, req.body, {useFindAndModify: false})
         .then(data => {
             if (!data) {
+                logger.warn("data is null!", {
+                    metadata: {
+                        req: {
+                            method: req.method,
+                            originalUrl: req.originalUrl,
+                            httpVersion: req.httpVersion
+                        }
+                    }
+                })
                 res.status(404).send({
                     message: `Cannot update course with id=${id}. Maybe course was not found!`
                 });
-            } else res.send({message: "course was updated successfully."});
+            } else {
+                logger.info("course updated successfully", {
+                    metadata: {
+                        req: {
+                            method: req.method,
+                            originalUrl: req.originalUrl,
+                            httpVersion: req.httpVersion
+                        }
+                    }
+                })
+                res.send({message: "course was updated successfully."});
+            }
         })
         .catch(() => {
+            logger.error("error occurred while updating course", {
+                metadata: {
+                    req: {
+                        method: req.method,
+                        originalUrl: req.originalUrl,
+                        httpVersion: req.httpVersion
+                    }
+                }
+            })
             res.status(500).send({
                 message: "Error updating course with id=" + id
             });
@@ -103,6 +168,15 @@ exports.delete = (req, res) => {
             }
         })
         .catch(() => {
+            logger.error("error occurred while deleting course", {
+                metadata: {
+                    req: {
+                        method: req.method,
+                        originalUrl: req.originalUrl,
+                        httpVersion: req.httpVersion
+                    }
+                }
+            })
             res.status(500).send({
                 message: "Could not delete  Course with id=" + id
             });
@@ -116,6 +190,15 @@ exports.getCourses = (req, res) => {
                 res.send(data)
             })
             .catch(err => {
+                logger.error("error occurred while finding courses", {
+                    metadata: {
+                        req: {
+                            method: req.method,
+                            originalUrl: req.originalUrl,
+                            httpVersion: req.httpVersion
+                        }
+                    }
+                })
                 res.status(500).send({
                     message:
                         err.message || "Some error occurred while retrieving courses."
@@ -133,12 +216,30 @@ exports.getCourses = (req, res) => {
                                 res.send(data)
                             })
                             .catch(err => {
+                                logger.error("Some error occurred while retrieving courses", {
+                                    metadata: {
+                                        req: {
+                                            method: req.method,
+                                            originalUrl: req.originalUrl,
+                                            httpVersion: req.httpVersion
+                                        }
+                                    }
+                                })
                                 res.status(500).send({
                                     message:
                                         err.message || "Some error occurred while retrieving courses."
                                 });
                             });
                     } else {
+                        logger.error("field not found for this user", {
+                            metadata: {
+                                req: {
+                                    method: req.method,
+                                    originalUrl: req.originalUrl,
+                                    httpVersion: req.httpVersion
+                                }
+                            }
+                        })
                         res.status(500).send({
                             message:
                                 "field not found for this user."
@@ -171,6 +272,15 @@ exports.getCourseById = (req, res) => {
                 else res.send(data);
             })
             .catch(() => {
+                logger.error("Some error occurred while retrieving courses", {
+                    metadata: {
+                        req: {
+                            method: req.method,
+                            originalUrl: req.originalUrl,
+                            httpVersion: req.httpVersion
+                        }
+                    }
+                })
                 res.status(500).send({message: "Error retrieving course with id=" + id});
             });
     } else if (req.role === "student" || req.role === "professor") {
@@ -198,14 +308,32 @@ exports.getCourseById = (req, res) => {
                     });
 
                     if (foundId && foundField) {
-                        res.status(200).send({foundCourse,message:"Course found."});
+                        res.status(200).send({foundCourse, message: "Course found."});
                     } else {
+                        logger.error("Course id or field not found.", {
+                            metadata: {
+                                req: {
+                                    method: req.method,
+                                    originalUrl: req.originalUrl,
+                                    httpVersion: req.httpVersion
+                                }
+                            }
+                        })
                         res.status(500).send({message: "Course id or field not found."});
                     }
                 });
             })
             .catch((err) => {
-                res.status(500).send({message: err.message || "Some error occurred while retrieving student."});
+                logger.error("Some error occurred while retrieving course.", {
+                    metadata: {
+                        req: {
+                            method: req.method,
+                            originalUrl: req.originalUrl,
+                            httpVersion: req.httpVersion
+                        }
+                    }
+                })
+                res.status(500).send({message: err.message || "Some error occurred while retrieving course."});
             });
     }
 };

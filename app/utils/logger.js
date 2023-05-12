@@ -11,7 +11,7 @@ function getRequestLineFormat() {
     return winston.format((info) => {
         const { req } = info.metadata || {};
         if (req) {
-            info.message += `\nRequest Line: ${req.method} ${req.originalUrl} HTTP/${req.httpVersion}`;
+            info.message += `\nRequest Line: ${req.method} ${req.originalUrl} HTTP/${req.httpVersion} HTTP STATUS/${req.statusCode}`;
         }
         return info;
     })();

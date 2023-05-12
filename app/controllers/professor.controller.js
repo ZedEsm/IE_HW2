@@ -1,6 +1,7 @@
 const db = require('../models')
 const Professor = db.professor
 const bcrypt = require('bcrypt')
+const logger = require("../utils/logger");
 exports.create = async (req, res) => {
     console.log(req.body)
 
@@ -36,6 +37,15 @@ exports.create = async (req, res) => {
         res.send(professor)
 
     }).catch(err => {
+        logger.error("Error retrieving while saving professor", {
+            metadata: {
+                req: {
+                    method: req.method,
+                    originalUrl: req.originalUrl,
+                    httpVersion: req.httpVersion
+                }
+            }
+        })
         res.status(500).send({
             message: err.message
         })
@@ -60,6 +70,15 @@ exports.update = (req, res) => {
             } else res.send({message: "Professor was updated successfully."});
         })
         .catch(() => {
+            logger.error("Error updating Professor with id", {
+                metadata: {
+                    req: {
+                        method: req.method,
+                        originalUrl: req.originalUrl,
+                        httpVersion: req.httpVersion
+                    }
+                }
+            })
             res.status(500).send({
                 message: "Error updating Professor with id=" + id
             });
@@ -76,12 +95,30 @@ exports.delete = (req, res) => {
                     message: `Cannot delete Professor with id=${id}. Maybe Professor was not found!`
                 });
             } else {
+                logger.info("Professor deleted successfully", {
+                    metadata: {
+                        req: {
+                            method: req.method,
+                            originalUrl: req.originalUrl,
+                            httpVersion: req.httpVersion
+                        }
+                    }
+                })
                 res.send({
                     message: "Professor was deleted successfully!"
                 });
             }
         })
         .catch(() => {
+            logger.error("Could not delete Professor", {
+                metadata: {
+                    req: {
+                        method: req.method,
+                        originalUrl: req.originalUrl,
+                        httpVersion: req.httpVersion
+                    }
+                }
+            })
             res.status(500).send({
                 message: "Could not delete Professor with id=" + id
             });
@@ -94,6 +131,15 @@ exports.getProfessors = (req, res) => {
             res.send(data)
         })
         .catch(err => {
+            logger.error("Some error occurred while retrieving professors", {
+                metadata: {
+                    req: {
+                        method: req.method,
+                        originalUrl: req.originalUrl,
+                        httpVersion: req.httpVersion
+                    }
+                }
+            })
             res.status(500).send({
                 message:
                     err.message || "Some error occurred while retrieving professors."
@@ -111,6 +157,15 @@ exports.getProfessorById = (req, res) => {
             else res.send(data);
         })
         .catch(() => {
+            logger.error("Some error occurred while retrieving professor with id", {
+                metadata: {
+                    req: {
+                        method: req.method,
+                        originalUrl: req.originalUrl,
+                        httpVersion: req.httpVersion
+                    }
+                }
+            })
             res
                 .status(500)
                 .send({message: "Error retrieving Professor with id=" + id});
