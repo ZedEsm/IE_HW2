@@ -2,8 +2,8 @@ const route = require('express').Router();
 const createStudent = require('../controllers/student.controller')
 const createProfessor = require('../controllers/professor.controller')
 const createEducationalManager = require('../controllers/educational-manager.controller')
-const authenticateUser = require('../midelware/authonticateToken')
-const authenticateAdmin = require('../midelware/authenticateAdmin')
+const authenticateUser = require('../midelware/auth/authonticateToken')
+const authenticateAdmin = require('../midelware/auth/authenticateAdmin')
 const createAdmin = require('../controllers/it-manager.controller')
 module.exports = app => {
 
