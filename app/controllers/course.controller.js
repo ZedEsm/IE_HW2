@@ -2,7 +2,6 @@ const db = require('../models')
 const Approved_Courses = db.approved_course;
 const Semester_Course = db.semester_course;
 const Course = db.course
-const Student = db.student
 const Users = db.users
 exports.create = (req, res) => {
     const {
@@ -157,26 +156,55 @@ exports.getCourses = (req, res) => {
                         err.message || "Some error occurred while retrieving student."
                 });
             })
-        // const data = await Student.findOne({identificationId: student_id})
-
     }
-
 };
-
 exports.getCourseById = (req, res) => {
     const id = req.params.id;
+    const field = req.query.field;
 
-    Course.findById(id)
-        .then(data => {
-            if (!data)
-                res.status(404).send({message: "Not found course with id " + id});
-            else res.send(data);
-        })
-        .catch(() => {
-            res
-                .status(500)
-                .send({message: "Error retrieving course with id=" + id});
-        });
-}
+    if (req.role === "manager") {
+        Course.findById(id)
+            .then((data) => {
+                if (!data) res.status(404).send({message: "Not found course with id " + id});
+                else res.send(data);
+            })
+            .catch(() => {
+                res.status(500).send({message: "Error retrieving course with id=" + id});
+            });
+    } else if (req.role === "student" || req.role === "professor") {
+        const student_id = req.id;
+        Users.findOne({identificationId: student_id})
+            .then((data) => {
+                data.populate("courses").then((data) => {
+                    const courseIdList = data.courses.map((item) => item._id.toString());
+                    let foundField = false;
+                    let foundId = false;
+                    let foundCourse = null;
 
+                    courseIdList.some((course_id) => {
+                        //check id given with course id of professor
+                        if (course_id === id) {
+                            foundId = true;
+                            const fieldList = data.courses.map((item) => item.field);
+                            if (fieldList.includes(field)) {
+                                foundField = true;
+                                foundCourse = data.courses.find((course) => course._id.toString() === course_id);
+                            }
+                            return true;
+                        }
+                        return false;
+                    });
+
+                    if (foundId && foundField) {
+                        res.status(200).send({foundCourse,message:"Course found."});
+                    } else {
+                        res.status(500).send({message: "Course id or field not found."});
+                    }
+                });
+            })
+            .catch((err) => {
+                res.status(500).send({message: err.message || "Some error occurred while retrieving student."});
+            });
+    }
+};
 
