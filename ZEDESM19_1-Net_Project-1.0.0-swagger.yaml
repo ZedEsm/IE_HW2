@@ -17,6 +17,11 @@ tags:
     description: Secured Admin-only calls
   - name: developers
     description: Operations available to regular developers
+securitySchemes:
+    jwt_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 paths:
   /login:
     post:
@@ -938,8 +943,3 @@ components:
           type: number 
         academic_semester:
          type: number
-  securitySchemes:
-    jwt_auth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
