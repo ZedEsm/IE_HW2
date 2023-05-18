@@ -26,6 +26,6 @@ module.exports = app => {
     route.delete("/admin/manager/:id",[authenticateUser.authenticate,authenticateAdmin.authenticate], createEducationalManager.delete)
     route.get("/admin/managers",[authenticateUser.authenticate,authenticateAdmin.authenticate], createEducationalManager.getEducationalManager)
     route.get("/admin/manager/:id",[authenticateUser.authenticate,authenticateAdmin.authenticate], createEducationalManager.getEducationalManagerById)
-
-    app.use('/api/posts', route)
+    // '/api/posts',
+    app.use( route)
 }

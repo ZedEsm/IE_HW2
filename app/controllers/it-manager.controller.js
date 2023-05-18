@@ -25,6 +25,7 @@ exports.create = async (req, res) => {
     })
 
     admin.save().then(() => {
+        logger.info("admin saved successfully")
         res.status(200).json({"message":"admin saved"})
 
     }).catch(err => {
